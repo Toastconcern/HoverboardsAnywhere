@@ -15,7 +15,7 @@ namespace HoverboardsAnywhere
 		{
 			/* A lot of Gorilla Tag systems will not be set up when start is called /*
 			/* Put code in OnGameInitialized to avoid null references */
-			GorillaTagger.OnPlayerSpawned(OnGameInitialized)
+			GorillaTagger.OnPlayerSpawned(OnGameInitialized);
 
               		NetworkSystem.Instance.OnMultiplayerStarted += OnJoin;
            		NetworkSystem.Instance.OnReturnedToSinglePlayer += OnLeave;

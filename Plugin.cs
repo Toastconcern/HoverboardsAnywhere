@@ -1,16 +1,11 @@
 ﻿using System;
 using BepInEx;
-using Utilla.Attributes;
 
 namespace HoverboardsAnywhere
 {
 	/// <summary>
 	/// This is your mod's main class.
 	/// </summary>
-
-	/* This attribute tells Utilla to look for [ModdedGameJoin] and [ModdedGameLeave] */
-	[ModdedGamemode]
-	[BepInDependency("org.legoandmars.gorillatag.utilla", "1.5.0")]
 	[BepInPlugin(PluginInfo.GUID, PluginInfo.Name, PluginInfo.Version)]
 	public class Plugin : BaseUnityPlugin
 	{
@@ -20,8 +15,10 @@ namespace HoverboardsAnywhere
 		{
 			/* A lot of Gorilla Tag systems will not be set up when start is called /*
 			/* Put code in OnGameInitialized to avoid null references */
+			GorillaTagger.OnPlayerSpawned(OnGameInitialized)
 
-			Utilla.Events.GameInitialized += OnGameInitialized;
+              		NetworkSystem.Instance.OnMultiplayerStarted += OnJoin;
+           		NetworkSystem.Instance.OnReturnedToSinglePlayer += OnLeave;
 		}
 
 		void OnEnable()
@@ -41,7 +38,7 @@ namespace HoverboardsAnywhere
 			HarmonyPatches.RemoveHarmonyPatches();
 		}
 
-		void OnGameInitialized(object sender, EventArgs e)
+		void OnGameInitialized()
 		{
 			/* Code here runs after the game initializes (i.e. GorillaLocomotion.Player.Instance != null) */
 		}
@@ -52,19 +49,20 @@ namespace HoverboardsAnywhere
 		}
 
 		/* This attribute tells Utilla to call this method when a modded room is joined */
-		[ModdedGamemodeJoin]
-		public void OnJoin(string gamemode)
+		public void OnJoin()
 		{
             /* Activate your mod here */
             /* This code will run regardless of if the mod is enabled*/
+	    if (NetworkSystem.Instance.GameModeString.Contains("MODDED_"))
+     		{
             GorillaLocomotion.Player.Instance.SetEnableHoverboard(enable: true);
             VRRig.LocalRig.hoverboardVisual.SetActive(active: true);
             inRoom = true;
 		}
+  		}
 
 		/* This attribute tells Utilla to call this method when a modded room is left */
-		[ModdedGamemodeLeave]
-		public void OnLeave(string gamemode)
+		public void OnLeave()
 		{
             /* Deactivate your mod here */
             /* This code will run regardless of if the mod is enabled*/

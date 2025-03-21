@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project>
+	<PropertyGroup>
+		<GamePath>C:\Program Files\Oculus\Software\Software\another-axiom-gorilla-tag</GamePath>
+		<GameAssemblyPath>$(GamePath)\Gorilla Tag_Data\Managed</GameAssemblyPath>
+		<BepInExAssemblyPath>$(GamePath)\BepInEx\core</BepInExAssemblyPath>
+		<PluginsPath>$(GamePath)\BepInEx\plugins</PluginsPath>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(CI)'=='TRUE'">
+		<GamePath>C:\Program Files\Oculus\Software\Software\another-axiom-gorilla-tag</GamePath>
+		<Assembly>$(GamePath)\Gorilla Tag_Data\Managed\Assembly-CSharp.dll</Assembly>
+		<PhotonRealtime>$(GamePath)\Gorilla Tag_Data\Managed\PhotonRealtime.dll</PhotonRealtime>
+		<PhotonUnityNetworking>$(GamePath)\Gorilla Tag_Data\Managed\PhotonUnityNetworking.dll</PhotonUnityNetworking>
+		<UnityEngine>$(GamePath)\Gorilla Tag_Data\Managed\UnityEngine.dll</UnityEngine>
+		<UnityEngineCoreModule>$(GamePath)\Gorilla Tag_Data\Managed\UnityEngine.CoreModule.dll</UnityEngineCoreModule>
+		<BepInExAssemblyPath>$(GamePath)\BepInEx\core</BepInExAssemblyPath>
+		<PluginsPath>$(GamePath)\BepInEx\plugins</PluginsPath>
+		<WarningLevel>0</WarningLevel>
+	</PropertyGroup>
+</Project>
